@@ -1,0 +1,39 @@
+[project]
+name = "chrome-tests"
+version = "0.1.0"
+description = "High-level automated tests for Google Chrome, built on Test-Conductor"
+requires-python = ">=3.11"
+authors = [{ name = "David Akopyan" }]
+
+dependencies = [
+    "test-conductor",
+    "pytest>=8.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.6",
+]
+
+[tool.uv.sources]
+test-conductor = { path = "../test-conductor", editable = true }
+
+
+[tool.uv]
+package = false
+
+
+[tool.pytest.ini_options]
+testpaths = ["."]
+addopts = "-ra --strict-markers --strict-config"
+
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "UP", "B", "SIM"]
+
+[tool.ruff.format]
+quote-style = "double"
