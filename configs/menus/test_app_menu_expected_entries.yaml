@@ -1,0 +1,13 @@
+# Config for tests/menus/test_app_menu_expected_entries.py
+#
+# Entries are named by their MenuItem member, not by the label Chrome shows.
+# The label itself lives only in MenuItem, so a Chrome rename is one edit
+# there instead of an edit in every config that mentioned the string.
+
+expected:
+  menu_items:
+    - NEW_TAB
+    - NEW_WINDOW
+    - HISTORY
+    - DOWNLOADS
+    - SETTINGS

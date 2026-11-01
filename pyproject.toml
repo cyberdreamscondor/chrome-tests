@@ -24,7 +24,7 @@ package = false
 
 
 [tool.pytest.ini_options]
-testpaths = ["."]
+testpaths = ["tests"]
 addopts = "-ra --strict-markers --strict-config"
 
 
