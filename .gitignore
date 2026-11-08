@@ -22,6 +22,8 @@ env/
 
 # --- Test artifacts (screenshots, traces, reports) ---
 # Produced by test runs; regenerated every time, never source.
+# test-output/ is the framework's default --output-dir location.
+/test-output/
 /artifacts/
 /reports/
 /screenshots/

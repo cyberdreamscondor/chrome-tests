@@ -1,13 +1,7 @@
-# Config for tests/lifecycle/test_chrome_launches.py
-#
-# chrome:   how the browser is started. Keys match ChromeConfig fields and go
-#           straight to Chrome.launch(). Omit the section for defaults.
-# expected: what the test asserts against.
-
 chrome:
   initial_url: about:blank
   launch_timeout: 30
   ui_timeout: 10
 
-expected:
+asserts:
   title_contains: Google Chrome

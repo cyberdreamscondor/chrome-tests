@@ -1,6 +1,2 @@
-# Config for tests/lifecycle/test_throwaway_profile.py
-
-expected:
-  # Substring every framework-managed profile directory must contain. Change
-  # this if PROFILE_PREFIX in chrome_process.py is ever renamed.
+asserts:
   profile_marker: test-conductor
