@@ -1,0 +1,48 @@
+name: ui-tests
+
+on:
+  workflow_dispatch:
+
+jobs:
+  chrome-uia:
+    name: real Chrome on a hosted runner
+    runs-on: windows-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out the suite
+        uses: actions/checkout@v7
+        with:
+          path: chrome-tests
+
+      - name: Check out the framework beside it
+        uses: actions/checkout@v7
+        with:
+          repository: ${{ github.repository_owner }}/test-conductor
+          path: test-conductor
+
+      - name: Install uv and python
+        uses: astral-sh/setup-uv@v10
+        with:
+          python-version: "3.14"
+          enable-cache: true
+
+      - name: Install the suite from its lockfile
+        working-directory: chrome-tests
+        run: uv sync --extra dev
+
+      - name: Report which Chrome the framework found
+        working-directory: chrome-tests
+        run: uv run python -c "from chrome_config import find_chrome_executable; print(find_chrome_executable())"
+
+      - name: Autotests against real Chrome
+        working-directory: chrome-tests
+        run: uv run pytest -v --save-log=always
+
+      - name: Keep the artifacts of this run
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: chrome-test-output
+          path: chrome-tests/test-output/
+          if-no-files-found: warn

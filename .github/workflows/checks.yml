@@ -1,0 +1,55 @@
+name: checks
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    name: lint and types
+    runs-on: windows-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out the suite
+        uses: actions/checkout@v7
+        with:
+          path: chrome-tests
+
+      - name: Check out the framework beside it
+        uses: actions/checkout@v7
+        with:
+          repository: ${{ github.repository_owner }}/test-conductor
+          path: test-conductor
+
+      - name: Install uv and python
+        uses: astral-sh/setup-uv@v10
+        with:
+          python-version: "3.14"
+          enable-cache: true
+
+      - name: Install the suite from its lockfile
+        working-directory: chrome-tests
+        run: uv sync --extra dev
+
+      - name: Lint
+        working-directory: chrome-tests
+        run: uv run ruff check .
+
+      - name: Formatting
+        working-directory: chrome-tests
+        run: uv run ruff format --check .
+
+      - name: Types
+        working-directory: chrome-tests
+        run: uv run ty check .
+
+      - name: Collect the tests without running them
+        working-directory: chrome-tests
+        run: uv run pytest --collect-only -q
