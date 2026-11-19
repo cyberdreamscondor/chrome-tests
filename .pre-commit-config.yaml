@@ -29,5 +29,5 @@ repos:
         language: system
         entry: pytest --collect-only -q
         pass_filenames: false
-        types: [python]
+        always_run: true
         stages: [pre-push]
