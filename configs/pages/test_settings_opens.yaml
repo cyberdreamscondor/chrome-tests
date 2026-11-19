@@ -1,0 +1,5 @@
+chrome:
+  remote_debugging_port: 0
+
+asserts:
+  page_url: chrome://settings
