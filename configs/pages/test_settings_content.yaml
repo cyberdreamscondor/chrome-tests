@@ -1,0 +1,10 @@
+chrome:
+  remote_debugging_port: 0
+
+asserts:
+  page_url: chrome://settings
+  page_title: Settings
+  page_sections:
+    - You and Google
+    - Privacy and security
+    - Appearance
